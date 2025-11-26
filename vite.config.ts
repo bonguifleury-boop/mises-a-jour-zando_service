@@ -1,13 +1,10 @@
 import { defineConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
-
-// Pour TypeScript, la syntaxe peut demander de préciser le type PluginOption (selon le strict mode):
-// import { visualizer } from 'rollup-plugin-visualizer';
-// import type { PluginOption } from 'vite';
-// plugins: [visualizer() as PluginOption]
+import react from '@vitejs/plugin-react'; // ← Nécessaire pour React
 
 export default defineConfig({
   plugins: [
+    react(), // ← Ajoute le plugin React
     visualizer({ open: true, gzipSize: true, brotliSize: true }),
   ],
   build: {
