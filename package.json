@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/genai": "*",
+    "@tailwindcss/vite": "^4.1.17",
     "firebase": "^10.8.0",
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^0.294.0",
