@@ -1,12 +1,24 @@
-
 import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
 
-// Configuration Supabase avec les clés fournies
-const supabaseUrl = 'https://wpaandlhikcvhsohmgms.supabase.co';
-const supabaseAnonKey = 'sb_publishable_xlB4gKD2Y5Gx-vP4iVU55A_WedrEkKy';
+// Charger les variables d'environnement depuis .env.local
+dotenv.config();
 
+// Récupérer les clés Supabase depuis process.env
+const supabaseUrl = process.env.SUPABASE_URL as string;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY as string;
+
+// Vérifier que les variables existent
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    "Supabase URL or ANON key is missing. Vérifie ton fichier .env.local !"
+  );
+}
+
+// Création du client Supabase
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Petit helper pour vérifier la configuration
 export const isSupabaseConfigured = () => {
-    return true;
+  return Boolean(supabaseUrl && supabaseAnonKey);
 };
