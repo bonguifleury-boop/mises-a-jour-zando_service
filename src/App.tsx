@@ -11,6 +11,7 @@ import { User, Product, Transaction, Supplier, StoreSettings } from './types';
 import { INITIAL_STORE_SETTINGS } from './constants';
 import { db, isFirebaseConfigured } from './services/firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import TestSupabase from './TestSupabase';
 
 // Lazy load du SupplierManager
 const LazySupplierManager = lazy(() => import('./components/stock/SupplierManager'));
@@ -104,7 +105,7 @@ const App: React.FC = () => {
     }
   }, [currentUser]);
 
-  // ---------- GESTION FOURNISSEURS ----------
+  // ---------- Gestion fournisseurs ----------
   const handleAddSupplier = async (newSupplier: Supplier) => {
     try {
       const { id, ...data } = newSupplier;
@@ -140,7 +141,7 @@ const App: React.FC = () => {
     }
   };
 
-  // ---------- GESTION PRODUITS ----------
+  // ---------- Gestion produits ----------
   const handleAddProduct = async (product: Product): Promise<boolean> => {
     try {
       const { id, ...data } = product;
@@ -227,6 +228,8 @@ const App: React.FC = () => {
             />
           </Suspense>
         );
+      case 'test-supabase':
+        return <TestSupabase />; // tu peux afficher TestSupabase dans un currentView temporaire
       default:
         return null;
     }

@@ -1,5 +1,10 @@
-declare module './firebase' {
-  import { FirebaseApp } from 'firebase/app';
-  const app: FirebaseApp;
-  export default app;
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_SUPABASE_URL: string;
+  readonly VITE_SUPABASE_ANON_KEY: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }
