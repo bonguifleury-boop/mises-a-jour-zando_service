@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "./services/supabaseClient";
+import { supabase } from "../services/supabaseClient";
 
 const TestSupabase: React.FC = () => {
-  const [tables, setTables] = useState<string[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState("Test de connexion en cours...");
 
   useEffect(() => {
-    const fetchTables = async () => {
+    const check = async () => {
       try {
-        // Exemple simple pour vérifier la table "products"
         const { data, error } = await supabase.from("products").select("*").limit(1);
-        if (error) throw error;
-        setTables(data ? ["products"] : []);
-      } catch (err: any) {
-        console.error(err);
-        setError(err.message || "Erreur inconnue");
+
+        if (error) {
+          setMessage("❌ Erreur Supabase : " + error.message);
+        } else {
+          setMessage("✅ Connexion Supabase OK !");
+        }
+      } catch (err) {
+        setMessage("❌ Impossible de contacter Supabase.");
       }
     };
 
-    fetchTables();
+    check();
   }, []);
 
   return (
-    <div>
-      <h2>Test connexion Supabase</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {!error && <p>Tables trouvées : {tables.join(", ") || "Aucune"}</p>}
+    <div style={{ padding: 10, background: "#eee", marginTop: 20 }}>
+      {message}
     </div>
   );
 };

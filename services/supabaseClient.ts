@@ -1,15 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-// ⚠️ Ici on récupère les variables via Vite
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const url = import.meta.env.VITE_SUPABASE_URL;
+const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Supabase URL ou ANON key manquante. Vérifie tes variables d'environnement !"
-  );
+if (!url || !key) {
+  throw new Error("Variables d'environnement Supabase manquantes.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-export const isSupabaseConfigured = () => Boolean(supabaseUrl && supabaseAnonKey);
+export const supabase: SupabaseClient = createClient(url, key);
